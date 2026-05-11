@@ -1,0 +1,35 @@
+# Binary output
+bin/
+*.exe
+
+# Nexus data directory — never commit your memory store
+.nexus/
+*.db
+*.db-shm
+*.db-wal
+
+# Environment — API keys live here
+.env
+
+# Benchmark results — commit these intentionally when publishing
+# benchmarks/results/
+
+# Go tooling
+vendor/
+coverage.out
+coverage.html
+*.test
+
+# GoLand IDE
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+AGENTS.md
+CLAME.md
+LESSONS.md
+
+
+benchmarks/results/*.json
