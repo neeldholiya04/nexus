@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+project_name: nexus
+
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - id: nexus
+    main: ./cmd/nexus
+    binary: nexus
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X github.com/neeldholiya04/nexus/internal/cli/commands.version={{ .Tag }}
+        -X github.com/neeldholiya04/nexus/internal/config.defaultAppEnvironment=production
+        -X github.com/neeldholiya04/nexus/internal/config.defaultAppDryRun=false
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - id: nexus
+    ids:
+      - nexus
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    formats:
+      - tar.gz
+    format_overrides:
+      - goos: windows
+        formats:
+          - zip
+    files:
+      - README.md
+      - .env.example
+      - docs/release.md
+      - docs/setup/local-setup.md
+      - docs/architecture/HLD.md
+      - docs/adr/ADR-001-sqlite-pure-go.md
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - "^ci:"
+
+release:
+  github:
+    owner: neeldholiya04
+    name: nexus
+  draft: false
+  prerelease: auto
+  make_latest: true
+  mode: replace
+  header: |
+    ## Nexus {{ .Tag }}
+
+    Local-first memory and context tooling for AI-assisted development.

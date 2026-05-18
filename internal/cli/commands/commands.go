@@ -25,6 +25,8 @@ type Deps interface {
 	Config() *config.Config
 }
 
+var version = "dev"
+
 // --- Version ---
 
 func NewVersionCmd() *cobra.Command {
@@ -32,7 +34,7 @@ func NewVersionCmd() *cobra.Command {
 		Use:   "version",
 		Short: "Print Nexus version",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Nexus v0.1.0")
+			fmt.Printf("Nexus %s\n", version)
 		},
 	}
 }

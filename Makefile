@@ -6,7 +6,9 @@ CMD_DIR     := ./cmd/nexus
 BUILD_DIR   := ./bin
 GO          := go
 GOFLAGS     := -trimpath
-LDFLAGS     := -ldflags="-s -w -X main.version=$(shell git describe --tags --always --dirty 2>/dev/null || echo dev)"
+VERSION     := $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
+VERSION_PKG := github.com/neeldholiya04/nexus/internal/cli/commands
+LDFLAGS     := -ldflags="-s -w -X $(VERSION_PKG).version=$(VERSION)"
 
 # Cross-compilation targets
 GOOS_LINUX  := GOOS=linux GOARCH=amd64

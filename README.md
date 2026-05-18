@@ -32,6 +32,17 @@ go build -o bin\nexus.exe .\cmd\nexus
 
 If Windows says the binary is locked, stop any running `nexus.exe` MCP/server process and rebuild.
 
+## GitHub Releases
+
+Release automation is configured with GitHub Actions and GoReleaser. Push a version tag to publish cross-platform binaries and checksums:
+
+```powershell
+git tag -a v0.1.0-alpha.1 -m "Nexus v0.1.0-alpha.1"
+git push origin v0.1.0-alpha.1
+```
+
+See [Releasing Nexus](docs/release.md) for the full release workflow and MCP setup from downloaded release assets.
+
 ## Quick Start
 
 Install prerequisites:

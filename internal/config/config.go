@@ -2,10 +2,16 @@ package config
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/spf13/viper"
+)
+
+var (
+	defaultAppEnvironment = "development"
+	defaultAppDryRun      = "true"
 )
 
 type Config struct {
@@ -116,8 +122,8 @@ func Load() (*Config, error) {
 func setDefaults(v *viper.Viper) {
 	v.SetDefault("app.name", "nexus")
 	v.SetDefault("app.version", "0.1.0")
-	v.SetDefault("app.environment", "development")
-	v.SetDefault("app.dry_run", true)
+	v.SetDefault("app.environment", defaultAppEnvironment)
+	v.SetDefault("app.dry_run", parseDefaultBool(defaultAppDryRun, true))
 
 	// Storage
 	v.SetDefault("storage.data_dir", "${HOME}/.nexus")
@@ -156,6 +162,14 @@ func setDefaults(v *viper.Viper) {
 	v.SetDefault("inference.max_tokens", 2048)
 	v.SetDefault("inference.temperature", 0.2)
 	v.SetDefault("inference.timeout", 60*time.Second)
+}
+
+func parseDefaultBool(value string, fallback bool) bool {
+	parsed, err := strconv.ParseBool(strings.TrimSpace(value))
+	if err != nil {
+		return fallback
+	}
+	return parsed
 }
 
 func bindEnvs(v *viper.Viper) {

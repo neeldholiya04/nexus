@@ -1,5 +1,6 @@
 # Binary output
 bin/
+dist/
 *.exe
 
 # Nexus data directory — never commit your memory store
