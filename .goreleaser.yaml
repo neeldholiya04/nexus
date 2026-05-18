@@ -65,7 +65,7 @@ release:
     name: nexus
   draft: false
   prerelease: auto
-  make_latest: true
+  make_latest: "{{ if .Prerelease }}false{{ else }}true{{ end }}"
   mode: replace
   header: |
     ## Nexus {{ .Tag }}

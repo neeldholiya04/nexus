@@ -12,7 +12,7 @@ When a tag matching `v*.*.*` is pushed, `.github/workflows/release.yml`:
 4. Runs GoReleaser.
 5. Publishes a GitHub Release with Linux, macOS, and Windows archives plus `checksums.txt`.
 
-Tags with prerelease suffixes, such as `v0.1.0-alpha.1` or `v0.1.0-rc.1`, are marked as GitHub prereleases automatically.
+Tags with prerelease suffixes, such as `v0.1.0-alpha.1` or `v0.1.0-rc.1`, are marked as GitHub prereleases automatically and are not marked as the repository's latest release. Stable tags, such as `v0.1.0`, are eligible to become latest.
 
 ## Using a release with MCP
 
